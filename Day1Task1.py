@@ -4,7 +4,7 @@ lines = []
 with open("Day1Task1.txt", "r") as f:
     lines = f.read().splitlines()
 
-cn = [chr(i) for i in range(49, 58)]
+cn = [*map(chr, range(49, 58))]
 sn = [
     "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
 ]
