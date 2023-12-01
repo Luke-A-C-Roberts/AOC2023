@@ -2,27 +2,24 @@ import re
 
 lines = []
 with open("Day1Task1.txt", "r") as f:
-    lines = f.readlines()
-lines = [*map(lambda s: s.strip(), lines)]
+    lines = f.read().splitlines()
 
-char_numbers = [chr(i) for i in range(49, 58)]
-spelled_numbers = [
+cn = [chr(i) for i in range(49, 58)]
+sn = [
     "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
 ]
-spelled_numbers_r = [*map(lambda x: x[::-1], spelled_numbers)]
+sn_r = [*map(lambda x: x[::-1], sn)]
 
 
 def find_first_number(l: str, r: bool):
-    l = l[::-1] if r else l
-    spelled = spelled_numbers_r if r else spelled_numbers
-    return re.search('|'.join(char_numbers) + '|' + '|'.join(spelled), l)
+    (l, s) = (l[::-1], sn_r) if r else (l, sn)
+    return re.search('|'.join([*cn, *s]), l)
 
 
 def convert_to_int(m: re.Match, r: bool) -> int:
-    spelled = spelled_numbers_r if r else spelled_numbers
-    if m.group(0) in spelled:
-        return spelled.index(m.group(0)) + 1
-    return int(m.group(0))
+    s = sn_r if r else sn
+    g = m.group()
+    return s.index(g) + 1 if g in s else int(g)
 
 
 def solve(l: str) -> int:
