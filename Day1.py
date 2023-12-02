@@ -1,7 +1,7 @@
 import re
 
 lines = []
-with open("Day1Task1.txt", "r") as f:
+with open("Day1.txt", "r") as f:
     lines = f.read().splitlines()
 
 cn = [*map(chr, range(49, 58))]
@@ -12,13 +12,12 @@ sn_r = [*map(lambda x: x[::-1], sn)]
 
 
 def find_first_number(l: str, r: bool):
-    (l, s) = (l[::-1], sn_r) if r else (l, sn)
+    l, s = (l[::-1], sn_r) if r else (l, sn)
     return re.search('|'.join([*cn, *s]), l)
 
 
 def convert_to_int(m: re.Match, r: bool) -> int:
-    s = sn_r if r else sn
-    g = m.group()
+    s, g = sn_r if r else sn, m.group()
     return s.index(g) + 1 if g in s else int(g)
 
 
